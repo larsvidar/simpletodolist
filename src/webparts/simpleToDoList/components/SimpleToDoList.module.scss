@@ -4,15 +4,25 @@
 
 .simpletodolist {
 
-
-  .bluebackground {
-    background:#224499;
-    color: white;
+  .container {
+    max-width: 700px;
+    margin: 0px auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
 
 
-}
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+    background-color: $ms-color-themeDark;
+    padding: 20px;
+  }
 
-.row {
-  background: red;
+  .tasklist {
+    list-style-type: none;
+    list-style-position: outside;
+    margin: 10px 0;
+    padding: 0;
+  }
+
 }

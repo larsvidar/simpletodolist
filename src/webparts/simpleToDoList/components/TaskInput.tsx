@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ITaskInputProps from './ITaskInputProps'
+import styles from './TaskInput.module.scss';
 
 export default class TaskInput extends React.Component<ITaskInputProps, {}> {
     constructor(props) {
@@ -25,11 +26,13 @@ export default class TaskInput extends React.Component<ITaskInputProps, {}> {
 
     public render(): React.ReactElement<TaskInput> {
         return (
-            <div>
-                <input type="text"
+            <div className={ styles.taskinput }>
+                <input className={styles.input}
+                       autofocus="true"
+                       type="text"
                        value={this.state.taskValue}
                        onChange={this.inputCapture}></input>
-                <button onClick={this.addButtonClick}>Add!</button>
+                <button className={styles.button} onClick={this.addButtonClick}>Add!</button>
             </div>
         );
     }

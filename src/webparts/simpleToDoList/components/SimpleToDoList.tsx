@@ -20,11 +20,19 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
   public render(): React.ReactElement<ISimpleToDoListProps> {
     return (
       <div className={ styles.simpletodolist }>
-        <div className={ styles.bluebackground }>
-          <h1>Simple todo-list</h1>
-          <p>Add tasks here</p>
-          <TaskItem tasks={this.state.taskItems} handleDelete={this.handleDelete} />
-          <TaskInput addNewTask={this.addNewTask} />
+        <div className={ styles.container }>
+          <div className={ styles.row }>
+
+            <h1>Simple todo-list</h1>
+            <p>Add tasks here</p>
+        
+            <ul className={ styles.tasklist }>
+                <TaskItem tasks={this.state.taskItems} handleDelete={this.handleDelete} />
+            </ul>
+            
+            <TaskInput addNewTask={this.addNewTask} />
+
+          </div>
         </div>
       </div>
     );
