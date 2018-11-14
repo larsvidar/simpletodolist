@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "simpletodolist-client-side-solution",
+    "id": "13e0f977-afc3-43a0-81cb-19c679ddcb62",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true
+  },
+  "paths": {
+    "zippedPackage": "solution/simpletodolist.sppkg"
+  }
+}
