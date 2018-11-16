@@ -28,7 +28,7 @@ export default class TaskInput extends React.Component<ITaskInputProps, {}> {
         return (
             <div className={ styles.taskinput }>
                 <input className={styles.input}
-                       autofocus="true"
+                       autoFocus
                        type="text"
                        value={this.state.taskValue}
                        onChange={this.inputCapture}></input>
