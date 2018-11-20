@@ -7,7 +7,7 @@ export default function TaskItem(props) {
         <li className={styles.taskitem}>   
             {props.tasks.map((item) => {
                 return (
-                    <div key={item[0]}>
+                    <div className={styles.item} key={item[0]}>
                         <p className={styles.p}>{item[1]}</p>
                         <button className={styles.button} onClick={() => props.handleDelete(item[0])}>Delete!</button>
                     </div>

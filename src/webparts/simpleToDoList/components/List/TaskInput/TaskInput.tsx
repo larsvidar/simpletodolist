@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ITaskInputProps from './ITaskInputProps'
+import ITaskInputProps from './ITaskInputProps';
 import styles from './TaskInput.module.scss';
 
 export default class TaskInput extends React.Component<ITaskInputProps, {}> {

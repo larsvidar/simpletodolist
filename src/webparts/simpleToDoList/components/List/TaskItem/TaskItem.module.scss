@@ -1,9 +1,13 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .taskitem {
-
     background-color: $ms-color-themeDarkAlt;
     width: 100%;
+    margin-bottom: 20px;
+
+    .item {
+        border-bottom: solid 5px #005a9e;
+    }
 
     .p {
         display: inline-block;
@@ -22,7 +26,7 @@
         color: white;
         border: none;
         height: 40px;
-        width: 80px;
+        width: 80px;        
         padding: 5px 10px;
         text-align: right;
         &:hover {
