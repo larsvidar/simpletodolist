@@ -16,4 +16,12 @@ $webpart-background-color: #005a9e;
     background-color: $webpart-background-color;
     padding: 20px;
   }
+
+  .tittle {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 1.8em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+    margin-top: -10px;
+  }
 }

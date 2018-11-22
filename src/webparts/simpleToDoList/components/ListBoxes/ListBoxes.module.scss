@@ -5,10 +5,10 @@ $list-box-background-color: #00B294;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     text-align: center;
-    font-family: sans-sarif;
-    text-shadow: 2px 2px 3px black;
+    font-family: sans-serif;
+    // text-shadow: 2px 2px 3px black;
 
     .box {
         display: block;
@@ -18,7 +18,8 @@ $list-box-background-color: #00B294;
         border: solid 1px black;
         border-radius: 3px;
         box-shadow: 3px 3px 5px black;
-        margin-bottom: .5em;
+        margin: 0 calc((700px - 94%) / 4) 1.2em;
+
     }
 
     .title {

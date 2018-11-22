@@ -29,8 +29,8 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
       <div className={ styles.simpletodolist }>
         <div className={ styles.container }>
           <div className={ styles.row }>
+            <h1 className={styles.tittle}>Simple todo-list</h1>
 
-            <h1>Simple todo-list</h1>
             { this.state.mode === "box" &&
               <ListBoxes updateBoxes={this.updateBoxes}
                          listBoxes={this.state.listBoxes}
@@ -85,10 +85,13 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
     sp.web.lists.get().then((lists) => {
         lists.map((list) => {
             if (list.BaseTemplate === 107) {
-                tempArray.push([list.Title, list.Description, list.Id]);
+              tempArray.push([list.Created, list.Title, list.Description, list.Id]);
             }
         });
-    }).then(() => this.setState({listBoxes: tempArray}));
+    }).then(() => {
+      tempArray.sort();
+      this.setState({listBoxes: tempArray});
+    });
   } 
 
   //Gets the biggest ID-number from an array and returns it + 1.

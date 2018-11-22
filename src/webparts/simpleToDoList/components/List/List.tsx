@@ -21,6 +21,7 @@ export default class List extends React.Component<IListProps, {}> {
     public render(): React.ReactElement<IListProps> {
         return(
             <div>
+                <h2>{this.listTitle}</h2>
                 <button onClick={this.handleCloseList}>Close list!</button>
                 <p>Add tasks here</p>
                 <ul className={ styles.tasklist }>
@@ -32,8 +33,12 @@ export default class List extends React.Component<IListProps, {}> {
         );
     }
 
+
     private thisList = sp.web.lists.getById(this.props.listId);
     private uniqueId;
+
+    private regex = new RegExp("(?<=\')(.*)(?=\,)");
+    private listTitle = this.regex.exec(this.thisList.items.toUrl())[0];
 
     //Runs when component loads.
     public componentDidMount() {
@@ -43,7 +48,7 @@ export default class List extends React.Component<IListProps, {}> {
 
     //Refreshes the list view by updating taskItems in state.
     private updateList(): void {
-        this.thisList.items.get().then((list) => {
+        this.thisList.items.get().then((list: Array<any>) => {
             this.props.drawList(list);
         });
 

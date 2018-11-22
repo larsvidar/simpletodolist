@@ -26,10 +26,10 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
                 <div className={styles.listboxes}>
                     {this.props.listBoxes.map((item) => {
                         return (
-                            <div className={styles.box} onClick={() => {this.handleOpenList(item[2]);}} key={item[2]}>
+                            <div className={styles.box} onClick={() => {this.handleOpenList(item[3]);}} key={item[3]}>
                                 <div>
-                                    <h1 className={styles.title}>{item[0]}</h1>
-                                    <p className={styles.description}>{item[1]}</p>
+                                    <h1 className={styles.title}>{item[1]}</h1>
+                                    <p className={styles.description}>{item[2]}</p>
                                 </div>
                             </div>
                         );
@@ -41,7 +41,7 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
                             <form>
                                 <input type="text" name="listName" value={this.state.listName} placeholder="List name..." onChange={(e) => this.handleInput(e)}></input>
                                 <input type="text" name="listDescription" value={this.state.listDescription} placeholder="List description..."onChange={(e) => this.handleInput(e)}></input>
-                                <button type="button" onClick={(e) => this.handleCreateList(e)}>Make list!</button>
+                                <button type="button" onClick={this.handleCreateList}>Make list!</button>
                             </form>
                         </div>
                     }
@@ -51,21 +51,32 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
         );
     }
 
-    //private uniqueId = this.props.createUniqueId(this.props.listBoxes);
-
+    /**
+     * Runs when component has been mounted
+     */
     public componentDidMount(): void {
         this.props.updateBoxes();
     }
 
-    private handleOpenList(id) {
+    /**
+     * Method for opening the clicked list-box.
+     * @param id Thi UUID of the clicked list.
+     */
+    private handleOpenList(id): void {
         this.props.openList(id);
     }
 
-    private makingNewList() {
+    /**
+     * Method for opening a create list dialog box.
+     */
+    private makingNewList(): void {
         this.setState({isCreatingNewList: true});
     }
 
-    private handleCreateList(event) {
+    /**
+     * Method for creating a new list.
+     */
+    private handleCreateList(): void {
         this.setState({isCreatingNewList: false});
         this.props.createNewList(this.state.listName, this.state.listDescription);
         this.setState({
@@ -74,7 +85,11 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
         });
     }
 
-    private handleInput(event) {
+    /**
+     * Method for handeling input fields.
+     * @param event object.
+     */
+    private handleInput(event): void {
         this.setState({[event.target.name]: event.target.value});
     }
 }
