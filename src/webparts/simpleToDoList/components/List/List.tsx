@@ -11,12 +11,17 @@ import TaskItem from './TaskItem/TaskItem';
 export default class List extends React.Component<IListProps, {}> {
 
     constructor(props) {
-        super();
+        super(props);
+
+        this.addNewTask = this.addNewTask.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleCloseList = this.handleCloseList.bind(this);
     }
 
     public render(): React.ReactElement<IListProps> {
         return(
             <div>
+                <button onClick={this.handleCloseList}>Close list!</button>
                 <p>Add tasks here</p>
                 <ul className={ styles.tasklist }>
                     <TaskItem tasks={this.props.taskItems} 
@@ -27,50 +32,40 @@ export default class List extends React.Component<IListProps, {}> {
         );
     }
 
-    private listName: string = "SimpleToDoList-list";
-    private listDescription = "A SimpleToDoList list.";
-    private LIST = sp.web.lists.getByTitle(this.listName);
-    private uniqueId: number = 0;
+    private thisList = sp.web.lists.getById(this.props.listId);
+    private uniqueId;
 
     //Runs when component loads.
     public componentDidMount() {
-        this.createNewList();
         this.updateList();
-        this.uniqueId = this.getMaxId();        
-    }
-
-    //Creates new list if it does not already exist.
-    private createNewList(): void {
-        sp.web.lists.ensure(this.listName, this.listDescription, 107);
-    }
-
-    //Returns the biggest ID-number in the list to ensure no ID's gets the same value.
-    private getMaxId(): number {
-        return Math.max.apply(Math, this.props.taskItems.map((item) => { 
-            return item[0]; 
-        }));
+        this.uniqueId = this.props.createUniqueId(this.props.taskItems);
     }
 
     //Refreshes the list view by updating taskItems in state.
     private updateList(): void {
-        this.LIST.items.get().then((list) => {
+        this.thisList.items.get().then((list) => {
             this.props.drawList(list);
         });
 
     }
 
     //Adds item to list and refreshes list view.
-    private addNewTask(value): void {
-        this.LIST.items.add({ID: this.uniqueId, Title: value}).then(() => {
+    private addNewTask(title): void {
+        this.thisList.items.add({ID: this.uniqueId.next().value, Title: title}).then(() => {
             this.updateList();
         });
     }
 
     //Deletes item from list and refreshes list view.
-    private handleDelete(id): void {
-        this.LIST.items.getById(id).delete().then(() => {
+    private handleDelete(id): void { 
+        this.thisList.items.getById(id).delete().then(() => {
             this.updateList();
         });
+    }
+
+    //Calls closeList method from SimpleToDoList.tsx.
+    private handleCloseList() {
+        this.props.closeList();
     }
 
 }

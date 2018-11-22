@@ -1,0 +1,33 @@
+
+$list-box-background-color: #00B294;
+
+.listboxes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+    font-family: sans-sarif;
+    text-shadow: 2px 2px 3px black;
+
+    .box {
+        display: block;
+        width: 28%;
+        height: 100px;
+        background: $list-box-background-color;
+        border: solid 1px black;
+        border-radius: 3px;
+        box-shadow: 3px 3px 5px black;
+        margin-bottom: .5em;
+    }
+
+    .title {
+        font-size: 1.5em;
+        display: block;
+    }
+
+    .description {
+        font-size: 1em;
+        display: block;
+    }
+}
