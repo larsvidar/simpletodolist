@@ -1,5 +1,7 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
+$webpart-background-color: #005a9e;
+
 .simpletodolist {
 
   .container {
@@ -11,7 +13,7 @@
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;
-    background-color: $ms-color-themeDark;
+    background-color: $webpart-background-color;
     padding: 20px;
   }
 }
