@@ -3,5 +3,5 @@ export default interface IListBoxes {
     listBoxes: Array<any>;
     createNewList: Function;
     openList: Function;
-    createUniqueId: Function;
+    deleteBox: Function;
 }

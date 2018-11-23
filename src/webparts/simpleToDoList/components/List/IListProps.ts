@@ -3,5 +3,4 @@ export default interface IListProps {
     drawList: Function;
     closeList: Function;
     listId: string;
-    createUniqueId: Function;
   }

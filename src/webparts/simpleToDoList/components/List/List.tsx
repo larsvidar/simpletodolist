@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Web, sp } from '@pnp/sp';
-
+import { sp } from '@pnp/sp';
 import IListProps from './IListProps';
 import styles from './List.module.scss';
 
@@ -21,11 +20,11 @@ export default class List extends React.Component<IListProps, {}> {
     public render(): React.ReactElement<IListProps> {
         return(
             <div>
-                <h2>{this.listTitle}</h2>
+                <h2>{this.props.listId[1]}</h2>
                 <button onClick={this.handleCloseList}>Close list!</button>
                 <p>Add tasks here</p>
                 <ul className={ styles.tasklist }>
-                    <TaskItem tasks={this.props.taskItems} 
+                    <TaskItem taskItems={this.props.taskItems} 
                               handleDelete={this.handleDelete} />
                 </ul>
                 <TaskInput addNewTask={this.addNewTask} />
@@ -34,21 +33,16 @@ export default class List extends React.Component<IListProps, {}> {
     }
 
 
-    private thisList = sp.web.lists.getById(this.props.listId);
-    private uniqueId;
-
-    private regex = new RegExp("(?<=\')(.*)(?=\,)");
-    private listTitle = this.regex.exec(this.thisList.items.toUrl())[0];
+    private thisList = sp.web.lists.getById(this.props.listId[0]);
 
     //Runs when component loads.
     public componentDidMount() {
         this.updateList();
-        this.uniqueId = this.props.createUniqueId(this.props.taskItems);
     }
 
     //Refreshes the list view by updating taskItems in state.
     private updateList(): void {
-        this.thisList.items.get().then((list: Array<any>) => {
+        this.thisList.items.get().then((list) => {
             this.props.drawList(list);
         });
 
@@ -56,7 +50,7 @@ export default class List extends React.Component<IListProps, {}> {
 
     //Adds item to list and refreshes list view.
     private addNewTask(title): void {
-        this.thisList.items.add({ID: this.uniqueId.next().value, Title: title}).then(() => {
+        this.thisList.items.add({Title: title}).then(() => {
             this.updateList();
         });
     }

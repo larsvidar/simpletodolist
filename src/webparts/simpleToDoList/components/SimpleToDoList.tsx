@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './SimpleToDoList.module.scss';
 import { ISimpleToDoListProps } from './ISimpleToDoListProps';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { Web, sp } from '@pnp/sp';
+import { sp } from '@pnp/sp';
 
 import List from './List/List';
 import ListBoxes from './ListBoxes/ListBoxes';
@@ -36,15 +36,14 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
                          listBoxes={this.state.listBoxes}
                          createNewList={this.createNewList}
                          openList={this.openList}
-                         createUniqueId={this.createUniqueId} />
+                         deleteBox={this.DeleteBox} />
             }
 
             { this.state.mode !== "box" &&
               <List taskItems={this.state.taskItems} 
                     drawList={this.drawList}
                     closeList={this.closeList}
-                    listId={this.state.mode}
-                    createUniqueId={this.createUniqueId} />
+                    listId={this.state.mode} />
             }
           </div>
         </div>
@@ -70,8 +69,8 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
   }
 
   //Opens list with the given ID.
-  private openList(id) {
-    this.setState({mode: id});
+  private openList(id, title) {
+    this.setState({mode: [id, title]});
   }
 
   //Closes all lists.
@@ -85,7 +84,7 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
     sp.web.lists.get().then((lists) => {
         lists.map((list) => {
             if (list.BaseTemplate === 107) {
-              tempArray.push([list.Created, list.Title, list.Description, list.Id]);
+              tempArray.push([list.Created, list.Id, list.Title, list.Description]);
             }
         });
     }).then(() => {
@@ -94,12 +93,10 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
     });
   } 
 
-  //Gets the biggest ID-number from an array and returns it + 1.
-  private* createUniqueId(array): Generator {
-    let current: number = Math.max.apply(Math, array.map((item) => { 
-      return item[0]; 
-    }));
-
-    yield current++;
+  private DeleteBox(id) {
+    console.log("Box will delete!");
+    sp.web.lists.getById(id).delete().then(() => {
+      this.updateBoxes();
+    });
   }
 }
