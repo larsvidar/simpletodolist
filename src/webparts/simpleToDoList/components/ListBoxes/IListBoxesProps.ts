@@ -3,5 +3,8 @@ export default interface IListBoxes {
     listBoxes: Array<any>;
     createNewList: Function;
     openList: Function;
-    deleteBox: Function;
+    showDeleteConfirmation: Function;
+    closeDeleteConfirmation: Function;
+    isDeleteConfirmation: any;
+    loadingIndicator: Function;
 }

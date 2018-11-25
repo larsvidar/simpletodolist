@@ -5,6 +5,7 @@ import styles from './List.module.scss';
 
 import TaskInput from './TaskInput/TaskInput';
 import TaskItem from './TaskItem/TaskItem';
+import DeleteConfirmation from '../sitecomponents/DeleteConfirmation';
 
 
 export default class List extends React.Component<IListProps, {}> {
@@ -17,10 +18,15 @@ export default class List extends React.Component<IListProps, {}> {
         this.handleCloseList = this.handleCloseList.bind(this);
     }
 
+    public state = {
+        showDeleteConfirmation: false,
+    };
+
     public render(): React.ReactElement<IListProps> {
         return(
             <div>
                 <h2>{this.props.listId[1]}</h2>
+                <button onClick={(event) => this.props.showDeleteConfirmation(event, this.props.listId[0])}>Delete this list!</button>
                 <button onClick={this.handleCloseList}>Close list!</button>
                 <p>Add tasks here</p>
                 <ul className={ styles.tasklist }>
@@ -28,6 +34,7 @@ export default class List extends React.Component<IListProps, {}> {
                               handleDelete={this.handleDelete} />
                 </ul>
                 <TaskInput addNewTask={this.addNewTask} />
+
             </div>
         );
     }
@@ -42,8 +49,11 @@ export default class List extends React.Component<IListProps, {}> {
 
     //Refreshes the list view by updating taskItems in state.
     private updateList(): void {
+        this.props.loadingIndicator(true);
         this.thisList.items.get().then((list) => {
             this.props.drawList(list);
+        }).then(() => {
+            this.props.loadingIndicator(false);
         });
 
     }
@@ -66,5 +76,4 @@ export default class List extends React.Component<IListProps, {}> {
     private handleCloseList() {
         this.props.closeList();
     }
-
 }

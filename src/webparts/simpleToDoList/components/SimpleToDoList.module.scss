@@ -15,9 +15,10 @@ $webpart-background-color: #005a9e;
     @include ms-fontColor-white;
     background-color: $webpart-background-color;
     padding: 20px;
+    position: relative;
   }
 
-  .tittle {
+  .title {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center;
     font-size: 1.8em;

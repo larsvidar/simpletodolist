@@ -6,6 +6,8 @@ import { sp } from '@pnp/sp';
 
 import List from './List/List';
 import ListBoxes from './ListBoxes/ListBoxes';
+import DeleteConfirmation from './sitecomponents/DeleteConfirmation';
+import LoadingIndicator from './sitecomponents/LoadingIndicator';
 
 export default class SimpleToDoList extends React.Component<ISimpleToDoListProps, {}> {
   constructor() {
@@ -16,12 +18,17 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
     this.createNewList = this.createNewList.bind(this);
     this.openList = this.openList.bind(this);
     this.closeList = this.closeList.bind(this);
+    this.showDeleteConfirmation = this.showDeleteConfirmation.bind(this);
+    this.closeDeleteConfirmation = this.closeDeleteConfirmation.bind(this);
+    this.loadingIndicator = this.loadingIndicator.bind(this);
   }
 
   public state = {
     taskItems: [],
     listBoxes: [],
-    mode: "box"
+    mode: "box",
+    isDeleteConfirmation: false,
+    isLoading: true,
   };
 
   public render(): React.ReactElement<ISimpleToDoListProps> {
@@ -29,22 +36,39 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
       <div className={ styles.simpletodolist }>
         <div className={ styles.container }>
           <div className={ styles.row }>
-            <h1 className={styles.tittle}>Simple todo-list</h1>
+            <h1 className={styles.title}>Simple todo-list</h1>
 
             { this.state.mode === "box" &&
               <ListBoxes updateBoxes={this.updateBoxes}
                          listBoxes={this.state.listBoxes}
                          createNewList={this.createNewList}
                          openList={this.openList}
-                         deleteBox={this.DeleteBox} />
+                         showDeleteConfirmation={this.showDeleteConfirmation}
+                         closeDeleteConfirmation={this.closeDeleteConfirmation}
+                         isDeleteConfirmation={this.state.isDeleteConfirmation}
+                         loadingIndicator={this.loadingIndicator} />
             }
 
             { this.state.mode !== "box" &&
               <List taskItems={this.state.taskItems} 
                     drawList={this.drawList}
                     closeList={this.closeList}
-                    listId={this.state.mode} />
+                    listId={this.state.mode}
+                    showDeleteConfirmation={this.showDeleteConfirmation}
+                    closeDeleteConfirmation={this.closeDeleteConfirmation}
+                    isDeleteConfirmation={this.state.isDeleteConfirmation}
+                    loadingIndicator={this.loadingIndicator} />
             }
+
+            { this.state.isDeleteConfirmation &&
+                        <DeleteConfirmation closeDeleteConfirmation={this.closeDeleteConfirmation}
+                                            listId={this.state.isDeleteConfirmation} />
+            }
+
+            { this.state.isLoading &&
+              <LoadingIndicator />
+            }
+
           </div>
         </div>
       </div>
@@ -58,6 +82,7 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
 
   //Refreshes the list view by updating taskItems in state.
   private drawList(taskList): void {
+    this.loadingIndicator(true);
     //Make a temporary array.
     let tempArray = [];
     //Populate temporary array with all existing list items.
@@ -65,7 +90,8 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
       return [task.ID, task.Title];   
     });
     //Set temporary array as new state (thereby updating view).
-    this.setState({taskItems: tempArray});
+    this.setState({taskItems: tempArray, 
+                   isLoading: false});
   }
 
   //Opens list with the given ID.
@@ -75,11 +101,13 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
 
   //Closes all lists.
   private closeList() {
-    this.setState({mode: "box"});
+    this.setState({mode: "box",
+                   taskItems: []});
   }
 
   //Update listBoxes array
   private updateBoxes() {
+    this.loadingIndicator(true);
     let tempArray = [];
     sp.web.lists.get().then((lists) => {
         lists.map((list) => {
@@ -89,14 +117,27 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
         });
     }).then(() => {
       tempArray.sort();
-      this.setState({listBoxes: tempArray});
+      this.setState({listBoxes: tempArray, 
+                     isLoading: false});
     });
   } 
 
-  private DeleteBox(id) {
-    console.log("Box will delete!");
-    sp.web.lists.getById(id).delete().then(() => {
-      this.updateBoxes();
-    });
+  /*** Methods for DeleteConformation ***/
+  private showDeleteConfirmation(event, id) {
+      event.stopPropagation();
+      this.setState({isDeleteConfirmation: id});
+  }
+
+  private closeDeleteConfirmation(shouldUpdate: boolean) {
+      this.setState({isDeleteConfirmation: false});
+      if(shouldUpdate) {
+        this.updateBoxes();
+        this.closeList();
+
+      }
+  }
+
+  private loadingIndicator(show: boolean) {
+      this.setState({isLoading: show});
   }
 }

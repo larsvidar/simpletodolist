@@ -2,6 +2,8 @@ import * as React from 'react';
 import IListBoxesProps from './IListBoxesProps';
 import styles from './ListBoxes.module.scss';
 
+import DeleteConfirmation from '../sitecomponents/DeleteConfirmation';
+
 export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
 
     /*** Class Constructor ***/
@@ -9,7 +11,6 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
         super(props);
 
         this.makingNewList = this.makingNewList.bind(this);
-        this.closeDeleteConfirmation = this.closeDeleteConfirmation.bind(this);
         this.handleCreateList = this.handleCreateList.bind(this);
     }
 
@@ -32,7 +33,7 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
                         return (
                             <div className={styles.box} onClick={() => {this.handleOpenList(item[1], item[2]);}} key={item[1]}>
                                 <div>
-                                    <p className={styles.closebutton} onClick={(event) => this.deleteConfirmation(event, item[1])}>X</p>
+                                    <p className={styles.deletebutton} onClick={(event) => this.props.showDeleteConfirmation(event, item[1])}>X</p>
                                     <h1 className={styles.title}>{item[2]}</h1>
                                     <p className={styles.description}>{item[3]}</p>
                                 </div>
@@ -48,14 +49,6 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
                                 <input type="text" name="listDescription" value={this.state.listDescription} placeholder="List description..."onChange={(e) => this.handleInput(e)}></input>
                                 <button type="button" onClick={this.handleCreateList}>Make list!</button>
                             </form>
-                        </div>
-                    }
-
-                    { this.state.showDeleteConfirmation &&
-                        <div className={styles.deleteconfirmation}>
-                            <p>Are you sure you want to delete this list?</p>
-                            <button onClick={() => this.handleDeleteBox(this.state.showDeleteConfirmation)}>Yes!</button>
-                            <button onClick={this.closeDeleteConfirmation}>No!</button>
                         </div>
                     }
 
@@ -106,19 +99,5 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
      */
     private handleInput(event): void {
         this.setState({[event.target.name]: event.target.value});
-    }
-
-    private handleDeleteBox(id) {
-        this.props.deleteBox(id);
-        this.closeDeleteConfirmation();
-    }
-
-    private deleteConfirmation(event, id) {
-        event.stopPropagation();
-        this.setState({showDeleteConfirmation: id});
-    }
-
-    private closeDeleteConfirmation() {
-        this.setState({showDeleteConfirmation: false});
     }
 }

@@ -3,4 +3,8 @@ export default interface IListProps {
     drawList: Function;
     closeList: Function;
     listId: string;
+    showDeleteConfirmation: Function;
+    closeDeleteConfirmation: Function;
+    isDeleteConfirmation: any;
+    loadingIndicator: Function;
   }
