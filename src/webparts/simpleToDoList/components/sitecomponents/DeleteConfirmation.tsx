@@ -3,12 +3,11 @@ import { sp } from '@pnp/sp';
 import styles from './DeleteConfirmation.module.scss';
 
 export default function DeleteConfirmation(props) {
-    console.log("Delete confirmation! in component");
     return(
         <div className={styles.deleteconfirmation}>
-            <p>Are you sure you want to delete this list?</p>
-            <button onClick={() => deleteList(props.listId, props.closeDeleteConfirmation)}>Yes!</button>
-            <button onClick={() => props.closeDeleteConfirmation(false)}>No!</button>
+            <p className={styles.confirmationtext}>Are you sure you want to delete this list?</p>
+            <button className={styles.confirmbuttons} onClick={() => deleteList(props.listId, props.closeDeleteConfirmation)}>Yes!</button>
+            <button className={styles.confirmbuttons} onClick={() => props.closeDeleteConfirmation(false)}>No!</button>
         </div>
     );
 }

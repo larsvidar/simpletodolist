@@ -6,9 +6,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 export default function LoadingIndicator() {
     return(
         <div className={styles.loadingindicator}>
-            <Icon iconName={"Sync"} className={styles.icon} />
+            <Icon iconName="Sync" className={styles.icon} />
         </div>
     );
 }
-
-//<p className={styles.clock}></p>

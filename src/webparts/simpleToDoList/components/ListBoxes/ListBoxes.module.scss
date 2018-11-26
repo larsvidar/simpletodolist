@@ -1,15 +1,22 @@
 
-$list-box-background-color: #00B294;
+$list-box-background-color: #71afe5;
+$list-box-background-color-hover: #c7e0f4;
+$box-text-color: #332;
 
 .listboxes {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    text-align: center;
-    font-family: sans-serif;
+
+    .listbox {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        text-align: center;
+        font-family: sans-serif;
+        position: relative;
+    }
 
     .box {
+        color: $box-text-color;
         display: block;
         width: 28%;
         height: 100px;
@@ -19,26 +26,77 @@ $list-box-background-color: #00B294;
         box-shadow: 3px 3px 5px black;
         margin: 0 calc((700px - 94%) / 4) 1.2em;
         position: relative;
+        cursor: pointer;
+        &:hover {
+            background-color: $list-box-background-color-hover;
+        }
+    }
+
+    .newlistform {
+        padding: 8px;
+
+        .cancelnewlist {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+        }
+
+        .newlistinputs {
+            border: none;
+            margin: 3px;
+            border-radius: 2px;
+            font-size: 1.2em;
+            width: 90%;
+            padding: 2px 4px 1px;
+        }
+
+        .newlistconfirm {
+            border: none;
+            margin: 5px;
+            padding: 5px;
+            font-size: 1em;
+            background-color: #00188f;
+            color: white;
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, .5);
+            &:hover {
+                background-color: #71afe5;
+                color: black;
+            }
+        }
     }
 
     .title {
         font-size: 1.5em;
         display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 20px 5px .75em;
     }
 
     .description {
         font-size: 1em;
         display: block;
+        margin-top: -5px;
+        font-style: italic;
     }
 
     .deletebutton {
         position: absolute;
-        top: -10px;
+        top: 5px;
         right: 5px;
+        cursor: pointer;
+        font-size: 1.2em;
         &:hover {
-            transform: scale(1.5);
-            color: #aaaaaa;
-            background-color: rgba(0, 0, 0, 0.3);
+            transform: scale(1.3);
+            color: #f00;
         }
+    }
+
+    .newlistbutton {
+        position: absolute;
+        top: 45px;
+        right: 40px;
+        font-size: 3em;
+        cursor: pointer;
     }
 }

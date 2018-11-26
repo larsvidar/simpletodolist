@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { sp } from '@pnp/sp';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import IListProps from './IListProps';
 import styles from './List.module.scss';
 
@@ -24,11 +25,12 @@ export default class List extends React.Component<IListProps, {}> {
 
     public render(): React.ReactElement<IListProps> {
         return(
-            <div>
-                <h2>{this.props.listId[1]}</h2>
-                <button onClick={(event) => this.props.showDeleteConfirmation(event, this.props.listId[0])}>Delete this list!</button>
-                <button onClick={this.handleCloseList}>Close list!</button>
-                <p>Add tasks here</p>
+            <div className={styles.list}>
+                <div className={styles.toppline}>
+                    <Icon iconName="Delete" className={styles.deletebutton} title="Delete this list!" onClick={(event) => this.props.showDeleteConfirmation(event, this.props.listId[0])} />
+                    <h2 className={styles.listtitle}>{this.props.listId[1]}</h2>
+                    <Icon iconName="ChromeClose" className={styles.closebutton} title="Close list!" onClick={this.handleCloseList} />
+                </div>
                 <ul className={ styles.tasklist }>
                     <TaskItem taskItems={this.props.taskItems} 
                               handleDelete={this.handleDelete} />
@@ -74,6 +76,7 @@ export default class List extends React.Component<IListProps, {}> {
 
     //Calls closeList method from SimpleToDoList.tsx.
     private handleCloseList() {
+        this.props.closeDeleteConfirmation(false);
         this.props.closeList();
     }
 }

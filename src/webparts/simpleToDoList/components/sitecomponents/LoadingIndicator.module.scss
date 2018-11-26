@@ -1,4 +1,4 @@
-$icon_size: 80px;
+$icon_size: 60px;
 
 .loadingindicator {
     text-align: center;
@@ -11,7 +11,7 @@ $icon_size: 80px;
 
     .icon {
         position: absolute;
-        top: calc(50% - 40px / 2);
+        top: calc(50% - 30px / 2);
         font-size: $icon_size;
         animation: fullrotate 1s linear infinite;
     }

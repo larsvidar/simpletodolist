@@ -133,7 +133,6 @@ export default class SimpleToDoList extends React.Component<ISimpleToDoListProps
       if(shouldUpdate) {
         this.updateBoxes();
         this.closeList();
-
       }
   }
 

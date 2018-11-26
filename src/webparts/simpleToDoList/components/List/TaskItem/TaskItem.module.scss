@@ -1,16 +1,17 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
-$list-item-background-color: #106ebe;
+$list-item-background-color: #004578;
 $delete-button-background-color: #002050;
 $delete-button-background-color-hoover: #00188f;
+$list-background-color: #0078d4;
 
 .taskitem {
     background-color: $list-item-background-color;
     width: 100%;
-    margin-bottom: 20px;
 
     .item {
-        border-bottom: solid 5px #005a9e;
+        border-radius: 3px;
+        border-bottom: solid 5px $list-background-color;
     }
 
     .p {

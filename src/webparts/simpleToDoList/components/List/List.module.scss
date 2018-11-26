@@ -1,8 +1,44 @@
+$list-background-color: #0078d4;
 
-.tasklist {
+.list {
+    background-color: $list-background-color;
+    border-radius: 4px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, .5); 
+    padding: .5em;
     position: relative;
-    list-style-type: none;
-    list-style-position: outside;
-    margin: 10px 0;
-    padding: 0;
+
+    .toppline {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        padding: .5em;
+
+        .deletebutton {
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        .listtitle {
+            margin: -10px;
+            padding: 0;
+            font-size: 2em;
+        }
+
+        .closebutton {
+            /*position: absolute;
+            top: 10px;
+            right: 10px;*/
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+    }
+
+    .tasklist {
+        position: relative;
+        list-style-type: none;
+        list-style-position: outside;
+        margin: 10px 0;
+        padding: 0;
+    }
 }

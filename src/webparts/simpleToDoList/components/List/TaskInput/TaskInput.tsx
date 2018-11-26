@@ -30,6 +30,7 @@ export default class TaskInput extends React.Component<ITaskInputProps, {}> {
                 <input className={styles.input}
                        autoFocus
                        type="text"
+                       placeholder="Add new task..."
                        value={this.state.taskValue}
                        onChange={this.inputCapture}></input>
                 <button className={styles.button} onClick={this.addButtonClick}>Add!</button>

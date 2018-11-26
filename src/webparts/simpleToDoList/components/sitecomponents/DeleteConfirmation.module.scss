@@ -1,9 +1,50 @@
+$delete-confirmation-background-color: #00188f;
+$delete-confirmation-border-color: #a80000;
+$delete-confirmation-text-color: white;
+$confirmation-button-background-color: #0078d4;
+$confirmation-button-text-color: white;
+$confirmation-button-hover-color:#c7e0f4;
+
+$delete-confirmation-width: 200px;
 
 .deleteconfirmation {
+    text-align: center;
+    width: $delete-confirmation-width;
+    color: $delete-confirmation-text-color;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    background: green;
-    border: solid 1px black;
+    top: calc(50% - 50px);
+    left: calc(50% - 100px);
+    background: $delete-confirmation-background-color;
+    border: solid 3px $delete-confirmation-border-color;
     border-radius: 5px;
+    padding: 15px;
+    animation: pulse .5s linear infinite alternate-reverse;
+
+    .confirmationtext {
+        font-weight: bold;
+    }
+
+    .confirmbuttons {
+        color: $confirmation-button-text-color;
+        font-size: 1.2em;
+        border: none;
+        margin: 5px 10px;
+        background: $confirmation-button-background-color;
+        cursor: pointer;
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, .5);
+        &:hover {
+            color: black;
+            background-color: $confirmation-button-hover-color;
+        }
+    }
+
+    @keyframes pulse {
+        from {
+            border-color: $delete-confirmation-border-color;
+        }
+
+        to {
+            border-color: #ffb900;
+        }
+    }
 }
