@@ -3,10 +3,16 @@
 
 ## simpletodolist
 
-This is a todo app for when you only need the ability to add and remove list items.
+This is a todo app for Sharepoint, for when you only need the ability to add and remove list items.
 Here you can create and delete Task-lists, and add and remove items.
 
-Made using [Yeoman](http://yeoman.io/) SharePoint generator, [React](https://reactjs.org/) and [PnPjs](https://pnp.github.io/pnpjs/).
+Made with
+*HTML5
+*Sass
+*JavaScript
+*[React](https://reactjs.org/) 
+*[Yeoman](http://yeoman.io/) SharePoint generator 
+*[PnPjs](https://pnp.github.io/pnpjs/).
 
 ##TODO
 * Let the user choose how many items should be listed on each page.
