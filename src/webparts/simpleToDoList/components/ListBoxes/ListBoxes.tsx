@@ -25,17 +25,17 @@ export default class ListBoxes extends React.Component<IListBoxesProps, {}> {
     /********** Render Method **********/
     public render(): React.ReactElement<IListBoxesProps> {
         return (
-            <div className={styles.listboxes}>
+            <div className={styles.listboxes} >
                 <Icon iconName="CirclePlus" className={styles.newlistbutton} title="Make new list" onClick={this.makingNewList} />
                 
-                <div className={styles.listbox}>
+                <div className={styles.listbox} >
                     {this.props.listBoxes.map((item) => {
                         return (
-                            <div className={styles.box} onClick={() => {this.handleOpenList(item[1], item[2]);}} key={item[1]}>
+                            <div className={styles.box} title={item[2]} onClick={() => this.handleOpenList(item[1], item[2])} key={item[1]} >
                                 <div>
-                                    <Icon iconName="Delete" className={styles.deletebutton} onClick={(event) => this.props.showDeleteConfirmation(event, item[1])} />
-                                    <h1 className={styles.title}>{item[2]}</h1>
-                                    <p className={styles.description}>{item[3]}</p>
+                                    <Icon iconName="Delete" className={styles.deletebutton} title="Delete this list!" onClick={(event) => this.props.showDeleteConfirmation(event, item[1])} />
+                                    <h1 className={styles.title} >{item[2]}</h1>
+                                    <p className={styles.description} >{item[3]}</p>
                                 </div>
                             </div>
                         );

@@ -1,7 +1,7 @@
 declare interface ISimpleToDoListWebPartStrings {
-  PropertyPaneDescription: string;
+  PropertyPaneNumberOfItems: number;
   BasicGroupName: string;
-  DescriptionFieldLabel: string;
+  NumberOfItemsLabel: string;
 }
 
 declare module 'SimpleToDoListWebPartStrings' {

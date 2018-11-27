@@ -1,3 +1,3 @@
 export interface ISimpleToDoListProps {
-  description: string;
+  numberOfItems: number;
 }

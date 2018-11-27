@@ -12,7 +12,7 @@ import SimpleToDoList from './components/SimpleToDoList';
 import { ISimpleToDoListProps } from './components/ISimpleToDoListProps';
 
 export interface ISimpleToDoListWebPartProps {
-  description: string;
+  numberOfItems: number;
 }
 
 export default class SimpleToDoListWebPart extends BaseClientSideWebPart<ISimpleToDoListWebPartProps> {
@@ -21,7 +21,7 @@ export default class SimpleToDoListWebPart extends BaseClientSideWebPart<ISimple
     const element: React.ReactElement<ISimpleToDoListProps > = React.createElement(
       SimpleToDoList,
       {
-        description: this.properties.description
+        numberOfItems: this.properties.numberOfItems
       }
     );
 
@@ -41,14 +41,14 @@ export default class SimpleToDoListWebPart extends BaseClientSideWebPart<ISimple
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneNumberOfItems
           },
           groups: [
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('numberOfItems', {
+                  label: strings.NumberOfItemsLabel
                 })
               ]
             }
